@@ -69,7 +69,7 @@ class WordPressClientAPI extends Client
         $request = new Request('POST', 'zones/'.$zoneId.'/pagerules/', array(), $body);
         $response = $this->callAPI($request);
 
-        return $this->responseOk($response);
+        return $response;
     }
 
     /**

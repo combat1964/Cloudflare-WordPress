@@ -119,7 +119,7 @@ abstract class AbstractAPIClient implements APIInterface
                 'body' => $request->getBody(), ), true);
             $this->logAPICall($this->getAPIClientName(), array('type' => 'response', 'reason' => $e->getResponse()->getReasonPhrase(), 'code' => $e->getResponse()->getStatusCode(), 'body' => $errorMessage, 'stacktrace' => $e->getTraceAsString()), true);
 
-            return $this->createAPIError($errorMessage);
+            return $this->createAPIError($errorMessage, $e->getResponse()->getStatusCode());
         }
     }
 

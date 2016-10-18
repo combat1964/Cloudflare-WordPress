@@ -38,7 +38,7 @@ class Client extends AbstractAPIClient
      *
      * @return array
      */
-    public function createAPIError($message)
+    public function createAPIError($message, $code = '')
     {
         $this->logger->error($message);
 
@@ -47,7 +47,7 @@ class Client extends AbstractAPIClient
             'success' => false,
             'errors' => array(
                 array(
-                    'code' => '',
+                    'code' => $code,
                     'message' => $message,
                 ),
             ),

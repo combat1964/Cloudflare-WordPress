@@ -116,7 +116,7 @@ abstract class AbstractPluginActions
         $formattedSettings = array();
         foreach ($settingsList as $setting) {
             $value = $this->dataStore->get($setting);
-            if($value === null) {
+            if ($value === null) {
                 //setting hasn't been set yet.
                 $value = $this->api->createPluginSettingObject($setting, null, true, null);
             }
@@ -131,8 +131,10 @@ abstract class AbstractPluginActions
     }
 
     /**
-     * For PATCH /plugin/:zonedId/settings/:settingId
+     * For PATCH /plugin/:zonedId/settings/:settingId.
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function patchPluginSettings()
@@ -148,14 +150,15 @@ abstract class AbstractPluginActions
             return $this->api->createAPIError('Unable to update plugin settings');
         }
 
-        if($settingId === Plugin::SETTING_DEFAULT_SETTINGS) {
+        if ($settingId === Plugin::SETTING_DEFAULT_SETTINGS) {
             try {
                 $this->applyDefaultSettings();
             } catch (\Exception $e) {
                 if ($e instanceof Exception\CloudFlareException) {
                     return $this->api->createAPIError($e->getMessage());
                 } else {
-                    throw $e;
+                    return $this->api->createAPIError($e->getMessage());
+                    // throw $e;
                 }
             }
         }
